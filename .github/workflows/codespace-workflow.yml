@@ -1,17 +1,9 @@
 name: Create Codespace and Update Repository
 
 on:
-  workflow_dispatch:
-    inputs:
-      dynamic_path:
-        description: 'Enter the dynamic path'
-        required: true
-        default: 'example_path'
-      branch_name:
-        description: 'Enter the branch name'
-        required: true
-        default: 'main'
-
+  push:
+    branches:
+      "*"
 jobs:
   create-codespace:
     runs-on: ubuntu-latest
