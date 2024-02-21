@@ -37,11 +37,15 @@ jobs:
           dynamicFilePath=${{ github.event.inputs.dynamic_path }}
           sed -i 's|openFiles": \[|openFiles": \[\n    "'"$dynamicFilePath"'"|' .devcontainer/devcontainer.json
 
-      - name: Create New Branch and Push Changes
+      - name: Pull Latest Changes from Main Branch
         run: |
           git config --global user.email "mohit.tekwani@thomsonreuters.com"
           git config --global user.name "Mohit-TekwaniTR"
-          git pull 
+          git checkout main
+          git pull origin main
+
+      - name: Create New Branch and Push Changes
+        run: |
           git checkout -b ${{ github.event.inputs.branch_name }}
           git add .
           git commit -m "Update devcontainer.json"
@@ -54,16 +58,13 @@ jobs:
           REPO_NAME="mohit-test"
           GITHUB_TOKEN="${{ secrets.MY_PAT_TOKEN }}"
           BRANCH_NAME="${{ github.event.inputs.branch_name }}"
-
           response=$(curl -v \
             -X POST \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: Bearer $GITHUB_TOKEN" \
             -d '{"ref":"refs/heads/'"$BRANCH_NAME"'","machine":"standardLinux32gb"}' \
             "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/codespaces")
-
           CODESPACE_URL=$(echo "$response" | jq -r '.web_url')
-
           echo "Codespace created: $CODESPACE_URL"
           echo '{"codespace_url": "'"$CODESPACE_URL"'"}' > output.json
           echo "::set-output name=codespace_url::$CODESPACE_URL"
