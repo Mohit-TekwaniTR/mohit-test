@@ -12,7 +12,7 @@ document.getElementById('createBranchForm').addEventListener('submit', function(
 async function createBranch(branchName, filePath) {
     const repoOwner = 'Mohit-TekwaniTR';
     const repoName = 'mohit-test';
-    const token = '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';
+    const token = `${ secrets.MY_PAT_TOKEN }`;
 
     try {
         const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/git/refs`, {
@@ -44,7 +44,7 @@ async function createBranch(branchName, filePath) {
 async function triggerWorkflowAndCreateCodespace(branchName, filePath) {
     const repoOwner = 'Mohit-TekwaniTR';
     const repoName = 'mohit-test';
-    const token = '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';
+    const token = `${ secrets.MY_PAT_TOKEN }`;
     const workflowName = 'codespace-workflow.yml';
 
     // Trigger GitHub Actions workflow
