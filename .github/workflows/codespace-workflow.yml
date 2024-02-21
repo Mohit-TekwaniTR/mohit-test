@@ -49,7 +49,7 @@ jobs:
           git checkout -b ${{ github.event.inputs.branch_name }}
           git add .
           git commit -m "Update devcontainer.json"
-          git push -u origin ${{ github.event.inputs.branch_name }}
+          git push -u origin ${{ github.event.inputs.branch_name }} -f
 
       - name: Create Codespace
         id: create_codespace
