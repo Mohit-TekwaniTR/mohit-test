@@ -36,6 +36,7 @@ jobs:
       - name: Update Devcontainer JSON
         run: |
           dynamicFilePath=${{ github.event.inputs.dynamic_path }}
+          echo $dynamicFilePath
           jq --arg path "$dynamicFilePath" '.customizations.codespaces.openFiles |= [$path,.[]]' .devcontainer/devcontainer.json
 
       - name: Pull Latest Changes from Main Branch
