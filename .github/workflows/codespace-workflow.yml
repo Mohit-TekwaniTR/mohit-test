@@ -20,14 +20,6 @@ jobs:
         with:
           node-version: "14"
 
-      - name: Install jq
-        if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install jq -y
-
-      - name: Install jq
-        if: runner.os == 'macOS'
-        run: brew install jq
-
       - name: Install Dependencies
         run: npm install
         env:
