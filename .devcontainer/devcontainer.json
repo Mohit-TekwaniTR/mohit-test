@@ -6,7 +6,9 @@
     },
     "customizations": {
         "codespaces": {
-            "openFiles": []
+            "openFiles": [
+                
+            ]
         }
     }
 }
