@@ -49,6 +49,8 @@ jobs:
           REPO_NAME="mohit-test"
           GITHUB_TOKEN="${{ secrets.MY_PAT_TOKEN }}"
           BRANCH_NAME="${{ github.event.inputs.branch_name }}"
+          echo : $BRANCH_NAME
+
           response=$(curl -v \
             -X POST \
             -H "Accept: application/vnd.github.v3+json" \
