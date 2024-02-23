@@ -1,7 +1,7 @@
 name: Create Codespace and Update Repository
 
 on:
- workflow_dispatch:
+  workflow_dispatch:
     inputs:
       dynamic_path:
         description: 'Enter the dynamic path'
@@ -89,7 +89,7 @@ jobs:
         if: steps.create_codespace.outputs.codespace_url != '' && steps.create_codespace.outputs.codespace_url != null
         run: |
           # Get the current branch name
-          BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+          BRANCH_NAME=${{ github.event.inputs.branch_name }}
           curl -X POST \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token $GITHUB_TOKEN" \
