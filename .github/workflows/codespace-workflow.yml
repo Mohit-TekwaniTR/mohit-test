@@ -52,9 +52,14 @@ jobs:
 
       - name: Create New Branch and Push Changes
         run: |
-          git add . 
-          git commit -m "Update devcontainer.json"
-          git push -u origin ${{ github.event.inputs.branch_name }} -f
+           git add .
+           git status
+           if [ -n "$(git status --porcelain)" ]; then
+              git commit -m "Update devcontainer.json"
+              git push -u origin ${{ github.event.inputs.branch_name }} -f
+           else
+              echo "No changes to commit."
+           fi
 
       - name: Create Codespace
         id: create_codespace
