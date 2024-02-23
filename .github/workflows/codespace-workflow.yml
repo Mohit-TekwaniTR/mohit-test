@@ -53,6 +53,7 @@ jobs:
 
       - name: Create New Branch and Push Changes
         run: |
+           git checkout ${{ github.event.inputs.branch_name }}
            git add .
            git status
            if [ -n "$(git status --porcelain)" ]; then
