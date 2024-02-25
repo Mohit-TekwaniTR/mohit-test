@@ -43,7 +43,7 @@ jobs:
         run: |
           dynamicFilePath=${{ github.event.inputs.dynamic_path }}
           echo $dynamicFilePath
-          sed -i "s|\(\"openFiles\": \[\)|\1\"$dynamicFilePath\", |" .devcontainer/devcontainer.json
+          sed -i "s|\(\"openFiles\": \[\)|\1\"$dynamicFilePath\" |" .devcontainer/devcontainer.json
           echo $(sed -i "s/\(\"openFiles\": \[\)/\1\"$dynamicFilePath\", /" .devcontainer/devcontainer.json)
 
       - name: Pull Latest Changes from Main Branch
