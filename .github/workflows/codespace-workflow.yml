@@ -43,6 +43,7 @@ jobs:
         run: |
           dynamicFilePath=${{ github.event.inputs.dynamic_path }}
           echo $dynamicFilePath
+          jq --arg path "$dynamicFilePath" '.customizations.codespaces.openFiles |= [$path,.[]]' .devcontainer/devcontainer.json > .devcontainer/devcontainer.json
           echo $(jq --arg path "$dynamicFilePath" '.customizations.codespaces.openFiles |= [$path,.[]]' .devcontainer/devcontainer.json) > .devcontainer/devcontainer.json
 
 
