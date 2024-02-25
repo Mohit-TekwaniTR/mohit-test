@@ -43,9 +43,8 @@ jobs:
         run: |
           dynamicFilePath=${{ github.event.inputs.dynamic_path }}
           echo $dynamicFilePath
-          jq --arg path "$dynamicFilePath" '.customizations.codespaces.openFiles |= [$path,.[]]' .devcontainer/devcontainer.json
-          echo $(jq --arg path "$dynamicFilePath" '.customizations.codespaces.openFiles |= [$path,.[]]' .devcontainer/devcontainer.json)
-
+          sed -i "s/\(\"openFiles\": \[\)/\1\"$dynamicFilePath\", /" .devcontainer/devcontainer.json
+          echo $(sed -i "s/\(\"openFiles\": \[\)/\1\"$dynamicFilePath\", /" .devcontainer/devcontainer.json)
 
       - name: Pull Latest Changes from Main Branch
         run: |
