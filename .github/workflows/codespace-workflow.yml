@@ -63,25 +63,6 @@ jobs:
               echo "No changes to commit."
            fi
 
-      - name: Create Codespace
-        id: create_codespace
-        run: |
-          REPO_OWNER="Mohit-TekwaniTR"
-          REPO_NAME="mohit-test"
-          GITHUB_TOKEN="${{ secrets._MY_PAT_TOKEN }}"
-          BRANCH_NAME="${{ github.event.inputs.branch_name }}"
-          echo : $BRANCH_NAME
-          response=$(curl -v \
-            -X POST \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
-            -d '{"ref":"refs/heads/'"$BRANCH_NAME"'","machine":"standardLinux32gb"}' \
-            "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/codespaces")
-          CODESPACE_URL=$(echo "$response" | jq -r '.web_url')
-          echo "Codespace created: $CODESPACE_URL"
-          echo '{"codespace_url": "'"$CODESPACE_URL"'"}' > output.json
-          echo "::set-output name=codespace_url::$CODESPACE_URL"
-
       - name: Display Contents of output.json
         run: cat output.json
 
@@ -92,7 +73,7 @@ jobs:
           path: output.json
 
       - name: Create Pull Request
-        if: steps.create_codespace.outputs.codespace_url != '' && steps.create_codespace.outputs.codespace_url != null
+        if: success() && steps.create_codespace.outputs.codespace_url != '' && steps.create_codespace.outputs.codespace_url != null
         run: |
           # Get the current branch name
           BRANCH_NAME=${{ github.event.inputs.branch_name }}
