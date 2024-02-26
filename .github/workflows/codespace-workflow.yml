@@ -37,7 +37,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
         env:
-          GITHUB_TOKEN: ${{ secrets.MY_PAT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets._MY_PAT_TOKEN }}
 
       - name: Update Devcontainer JSON
         run: |
@@ -68,7 +68,7 @@ jobs:
         run: |
           REPO_OWNER="Mohit-TekwaniTR"
           REPO_NAME="mohit-test"
-          GITHUB_TOKEN="${{ secrets.MY_PAT_TOKEN }}"
+          GITHUB_TOKEN="${{ secrets._MY_PAT_TOKEN }}"
           BRANCH_NAME="${{ github.event.inputs.branch_name }}"
           echo : $BRANCH_NAME
           response=$(curl -v \
