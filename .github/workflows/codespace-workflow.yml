@@ -77,9 +77,9 @@ jobs:
             -H "Authorization: Bearer $GITHUB_TOKEN" \
             -d '{"ref":"refs/heads/'"$BRANCH_NAME"'","machine":"standardLinux32gb"}' \
             "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/codespaces")
-          CODESPACE_URL=$(echo "$response" | jq -r '.web_url')
+          CODESPACE_URL=$(echo "$response" | jq -r '.codespace.web_url')
           echo "Codespace created: $CODESPACE_URL"
-          echo '{"codespace_url": "'"$CODESPACE_URL"'"}' > output.json
+          echo '{"codespace_url": "'"$CODESPACE_URL"'", "commit_id": "'$(git rev-parse HEAD)'", "user_id": "'$(git config --get user.email)'", "branch_name": "'$BRANCH_NAME'", "file_path": "'${{ github.event.inputs.dynamic_path }}'"}' > output.json
           echo "::set-output name=codespace_url::$CODESPACE_URL"
 
       - name: Display Contents of output.json
